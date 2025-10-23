@@ -2,13 +2,32 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Hello Home Assistant</title>
+  <title>Déclencheur Webhook Home Assistant</title>
   <style>
-    body { font-family: Arial; text-align:center; margin-top:50px; }
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    button { padding: 12px 24px; font-size: 18px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <h1>Hello Home Assistant 👋</h1>
-  <p>Ce mini site est hébergé sur GitHub Pages.</p>
+  <h1>Déclencher une action Home Assistant</h1>
+  <p>Clique sur le bouton ci-dessous pour exécuter ton automation.</p>
+  <button onclick="trigger()">Allumer 🚀</button>
+
+  <script>
+    async function trigger() {
+      const url = "https://bocciarelli.duckdns.org/api/whebook/outdoor_light"; // ← remplace cette URL
+      try {
+        const res = await fetch(url, { method: "POST" });
+        if (res.ok) {
+          alert("Automation déclenchée avec succès !");
+        } else {
+          alert("Erreur : " + res.status);
+        }
+      } catch (err) {
+        alert("Impossible de contacter le serveur Home Assistant !");
+        console.error(err);
+      }
+    }
+  </script>
 </body>
 </html>
